@@ -25,7 +25,7 @@ namespace AWFrameWork
             }
         }
         private Rectangle frame = new Rectangle();
-        public Rectangle Frame
+        public virtual Rectangle Frame
         {
             get
             {
@@ -37,7 +37,7 @@ namespace AWFrameWork
             }
         }
         protected Rectangle inputFrame = new Rectangle();
-        public Rectangle InputFrame
+        public virtual Rectangle InputFrame
         {
             get
             {
