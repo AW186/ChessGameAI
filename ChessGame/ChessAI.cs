@@ -41,6 +41,11 @@ namespace ChessGame
                     {
                         foreach (Point p in model[x, y].AvailableMoves(model))
                         {
+                            if (model[p.X, p.Y] != null && model[p.X, p.Y].Type == ChessType.King)
+                            {
+                                model[x, y].moveTo(p, model);
+                                return -9999999;
+                            }
                             ChessModel[,] node = new ChessModel[8, 8];
                             modelCopy(node, model);
                             node[x, y].moveTo(p, node);
@@ -50,7 +55,7 @@ namespace ChessGame
                 }
             }
             nodes.Sort((a, b) => a.score - b.score);
-            for (int i = 0; i < (nodes.Count > 20 ? 20 : nodes.Count); i++)
+            for (int i = 0; i < nodes.Count / 2 + 1; i++)
             {
                 ChessModel[,] rnode = new ChessModel[8, 8];
                 modelCopy(rnode, nodes[i].model);
@@ -87,6 +92,11 @@ namespace ChessGame
                     {
                         foreach (Point p in model[x, y].AvailableMoves(model))
                         {
+                            if (model[p.X, p.Y] != null && model[p.X, p.Y].Type == ChessType.King)
+                            {
+                                model[x, y].moveTo(p, model);
+                                return 9999999;
+                            }
                             ChessModel[,] node = new ChessModel[8, 8];
                             modelCopy(node, model);
                             node[x, y].moveTo(p, node);
@@ -96,7 +106,7 @@ namespace ChessGame
                 }
             }
             nodes.Sort((a, b) => a.score - b.score);
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < nodes.Count / 2 + 1; i++)
             {
                 ChessModel[,] rnode = new ChessModel[8, 8];
                 modelCopy(rnode, nodes[i].model);

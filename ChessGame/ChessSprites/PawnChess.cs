@@ -43,9 +43,30 @@ namespace ChessGame
                 return false;
             }
         }
+        public List<Point> PromotePossibleMoves(ChessModel[,] board)
+        {
+            List<Point> res = new List<Point>();
+            for (int x = 0; x <= 2; x++)
+            {
+                for (int y = 0; y <= 2; y++)
+                {
+                    res.AddRange(search(new Point(this.Position.X - 1 + x,
+                        this.Position.Y - 1 + y), new Point(x - 1, y - 1), board));
+                }
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                res.Add(new Point(KnightChess.directions[i, 0] + Position.X, KnightChess.directions[i, 1] + Position.Y));
+            }
+            return res;
+
+        }
         public override List<Point> PossibleMoves(ChessModel[,] board)
         {
-            
+            if (this.Position.X == 0 || this.Position.X == 7)
+            {
+                return PromotePossibleMoves(board);
+            }
             List<Point> res = new List<Point>();
             int dir = -(int)this.Side;
             int newX = this.Position.X + dir;

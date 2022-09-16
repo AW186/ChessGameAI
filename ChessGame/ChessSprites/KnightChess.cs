@@ -4,7 +4,7 @@ namespace ChessGame
 {
 	public class KnightChess: ChessModel
 	{
-        static int[,] directions = new int[8, 2] {
+        public static int[,] directions = new int[8, 2] {
                 { 1, 2 }, { -1, -2 }, { -1, 2 }, { 1, -2 },
                 { 2, 1 }, { -2, -1 }, { -2, 1 }, { 2, -1 } };
         public KnightChess() : base()

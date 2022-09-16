@@ -43,6 +43,10 @@ namespace ChessGame
             {
                 robot.minimaxSearch(model.Board, -100000, 100000);
                 model.turn = Player.White;
+                if (winnerCheck() != 0)
+                {
+                    model = new ChessGameModel();
+                }
                 updateChess();
             }
             base.Update(time, kstate, mstate);

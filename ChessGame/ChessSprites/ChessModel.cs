@@ -48,7 +48,7 @@ namespace ChessGame
             }
             return false;
         }
-        static int[] motionBoard = new int[] { 900, 45, 25, 15, 15, 5 };
+        static int[] motionBoard = new int[] { 9000, 450, 250, 150, 150, 50 };
         public int motionScore(ChessModel[,] board, Player side)
         {
             int res = 0;
