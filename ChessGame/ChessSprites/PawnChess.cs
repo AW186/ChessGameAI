@@ -74,7 +74,8 @@ namespace ChessGame
             {
                 return res;
             }
-            if (this.firstMove && board[newX + dir, Position.Y] == null)
+            if (this.firstMove && newX + dir < 8 && newX + dir >= 0 &&
+                board[newX + dir, Position.Y] == null)
             {
                 res.Add(new Point(newX + dir, Position.Y));
             }

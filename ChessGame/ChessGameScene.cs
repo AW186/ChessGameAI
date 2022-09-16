@@ -8,6 +8,8 @@ namespace ChessGame
 		ChessGameModel model = new ChessGameModel();
         List<Chess> chesses = new List<Chess>();
         ChessAI robot = new ChessAI();
+        TextSprite aiText = new TextSprite("waiting for the black turn", Game1.Content.Load<SpriteFont>("File"));
+        private bool aiRunning = false;
 		public ChessGameScene()
 		{
 		}
@@ -16,6 +18,7 @@ namespace ChessGame
             base.Load();
 			this.AddSprite(board);
             updateChess();
+            aiText.Frame = new Rectangle(500, 200, 100, 100);
         }
         private void updateChess()
         {
@@ -37,17 +40,30 @@ namespace ChessGame
                 }
             }
         }
+        private void robotTurn()
+        {
+            robot.minimaxSearch(model.Board, -100000, 100000);
+            model.turn = Player.White;
+            if (winnerCheck() != 0)
+            {
+                model = new ChessGameModel();
+            }
+        }
+
         public override void Update(GameTime time, KeyboardState kstate, MouseState mstate)
         {
-            if (model.Turn == Player.Black)
+            if (model.Turn == Player.White && aiRunning)
             {
-                robot.minimaxSearch(model.Board, -100000, 100000);
-                model.turn = Player.White;
-                if (winnerCheck() != 0)
-                {
-                    model = new ChessGameModel();
-                }
+                aiRunning = false;
+                this.aiText.RemoveFromScene();
                 updateChess();
+            }
+            if (model.Turn == Player.Black && !aiRunning)
+            {
+                aiRunning = true;
+                this.AddSprite(aiText);
+                Thread robotThread = new Thread(robotTurn);
+                robotThread.Start();
             }
             base.Update(time, kstate, mstate);
 
@@ -55,6 +71,10 @@ namespace ChessGame
         public override void click(MouseState state)
         {
             base.click(state);
+            if (model.Turn != Player.White)
+            {
+                return;
+            }
             int x = (state.Position.Y - 20) / 55;
             int y = (state.Position.X - 20) / 55;
             

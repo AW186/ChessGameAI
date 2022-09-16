@@ -6,6 +6,7 @@ namespace ChessGame
 {
 	public class ChessAI
 	{
+        private int divider = 4;
 		static int[] scoreBoard = new int[] { 9000, 900, 500, 300, 300, 100 };
         public class Node
         {
@@ -55,7 +56,7 @@ namespace ChessGame
                 }
             }
             nodes.Sort((a, b) => a.score - b.score);
-            for (int i = 0; i < nodes.Count / 2 + 1; i++)
+            for (int i = 0; i < nodes.Count / divider + 1; i++)
             {
                 ChessModel[,] rnode = new ChessModel[8, 8];
                 modelCopy(rnode, nodes[i].model);
@@ -105,8 +106,8 @@ namespace ChessGame
                     }
                 }
             }
-            nodes.Sort((a, b) => a.score - b.score);
-            for (int i = 0; i < nodes.Count / 2 + 1; i++)
+            nodes.Sort((a, b) => b.score - a.score);
+            for (int i = 0; i < nodes.Count / divider + 1; i++)
             {
                 ChessModel[,] rnode = new ChessModel[8, 8];
                 modelCopy(rnode, nodes[i].model);
