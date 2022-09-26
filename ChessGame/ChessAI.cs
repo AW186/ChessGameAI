@@ -6,6 +6,7 @@ namespace ChessGame
 {
 	public class ChessAI
 	{
+        int maxdepth = 6;
         private int divider = 4;
 		static int[] scoreBoard = new int[] { 9000, 900, 500, 300, 300, 100 };
         public class Node
@@ -18,8 +19,9 @@ namespace ChessGame
                 score = s;
             }
         }
-		public ChessAI()
+		public ChessAI(int maxdepth)
 		{
+            this.maxdepth = maxdepth;
 		}
 		public int minimaxSearch(ChessModel[,] model, int alpha, int beta)
         {
@@ -27,7 +29,7 @@ namespace ChessGame
         }
         private int minSearch(ChessModel[,] model, int alpha, int beta, int depth)
         {
-            if (depth >= 6)
+            if (depth >= maxdepth)
             {
                 return evaluate(model, Player.Black);
             }
@@ -78,7 +80,7 @@ namespace ChessGame
         }
         private int maxSearch(ChessModel[,] model, int alpha, int beta, int depth)
         {
-            if (depth >= 6)
+            if (depth >= maxdepth)
             {
                 return evaluate(model, Player.White);
             }

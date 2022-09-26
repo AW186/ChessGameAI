@@ -5,7 +5,7 @@ namespace AWFrameWork
 	{
 		private Action action;
 
-		public TextButtonSprite(String text, SpriteFont font, Action action) : base(text, font)
+        public TextButtonSprite(String text, SpriteFont font, Action action) : base(text, font)
         {
 			this.action = action;
 		}

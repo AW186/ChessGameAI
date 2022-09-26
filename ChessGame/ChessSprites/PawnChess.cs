@@ -70,10 +70,6 @@ namespace ChessGame
             List<Point> res = new List<Point>();
             int dir = -(int)this.Side;
             int newX = this.Position.X + dir;
-            if (newX >= 0 && newX < 8 && board[newX, Position.Y] != null)
-            {
-                return res;
-            }
             if (this.firstMove && newX + dir < 8 && newX + dir >= 0 &&
                 board[newX + dir, Position.Y] == null)
             {
@@ -86,7 +82,11 @@ namespace ChessGame
                 {
                     continue;
                 }
-                if (y == 0 || (board[newX, newY] != null && board[newX, newY].Side != this.Side))
+                if (y == 0 && board[newX, Position.Y] == null)
+                {
+                    res.Add(new Point(newX, newY));
+                }
+                else if (y != 0 && (board[newX, newY] != null && board[newX, newY].Side != this.Side))
                 {
                     res.Add(new Point(newX, newY));
                 }

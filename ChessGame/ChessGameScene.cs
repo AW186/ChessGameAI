@@ -7,8 +7,12 @@ namespace ChessGame
 		AWSprite board = new BoardSprite();
 		ChessGameModel model = new ChessGameModel();
         List<Chess> chesses = new List<Chess>();
-        ChessAI robot = new ChessAI();
+        ChessAI robot = new ChessAI(6);
         TextSprite aiText = new TextSprite("waiting for the black turn", Game1.Content.Load<SpriteFont>("File"));
+        TextSprite currentlevel = new TextSprite("Current level: " + 3, Game1.Content.Load<SpriteFont>("File"));
+        TextButtonSprite level1;
+        TextButtonSprite level2;
+        TextButtonSprite level3;
         private bool aiRunning = false;
 		public ChessGameScene()
 		{
@@ -19,6 +23,27 @@ namespace ChessGame
 			this.AddSprite(board);
             updateChess();
             aiText.Frame = new Rectangle(500, 200, 100, 100);
+            currentlevel.Frame = new Rectangle(500, 250, 100, 100);
+            level1 = new TextButtonSprite("level1", Game1.Content.Load<SpriteFont>("File"), () => {
+                robot = new ChessAI(4);
+                currentlevel.Text = "Current level: " + 1;
+            });
+
+            level2 = new TextButtonSprite("level2", Game1.Content.Load<SpriteFont>("File"), () => {
+                robot = new ChessAI(5);
+                currentlevel.Text = "Current level: " + 2;
+            });
+            level3 = new TextButtonSprite("level3", Game1.Content.Load<SpriteFont>("File"), () => {
+                robot = new ChessAI(6);
+                currentlevel.Text = "Current level: " + 3;
+            });
+            level1.Frame = new Rectangle(500, 300, 100, 100);
+            level2.Frame = new Rectangle(500, 320, 100, 100);
+            level3.Frame = new Rectangle(500, 340, 100, 100);
+            this.AddSprite(level1);
+            this.AddSprite(level2);
+            this.AddSprite(level3);
+            this.AddSprite(currentlevel);
         }
         private void updateChess()
         {
